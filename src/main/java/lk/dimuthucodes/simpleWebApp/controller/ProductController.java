@@ -3,8 +3,7 @@ package lk.dimuthucodes.simpleWebApp.controller;
 import lk.dimuthucodes.simpleWebApp.model.Product;
 import lk.dimuthucodes.simpleWebApp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,8 +13,19 @@ public class ProductController  {
     @Autowired
     ProductService service;
 
-    @RequestMapping("products")
+    @GetMapping("/products")
     public List<Product> getProduct() {
         return service.getProducts();
+    }
+
+    @GetMapping("/products/{Id}")
+    public Product getProductById (@PathVariable(value = "Id") int proId){
+        return service.getProductById(proId);
+    }
+
+    @PostMapping("/products")
+    public void addProduct(@RequestBody Product prod){
+        service.addProduct(prod);
+        System.out.println(prod);
     }
 }

@@ -20,6 +20,7 @@ public class Product {
         this.proId = proId;
     }
 
+
     public String getProName() {
         return proName;
     }
@@ -34,5 +35,14 @@ public class Product {
 
     public void setProPrice(int proPrice) {
         this.proPrice = proPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "proId=" + proId +
+                ", proName='" + proName + '\'' +
+                ", proPrice=" + proPrice +
+                '}';
     }
 }
