@@ -3,15 +3,20 @@ package lk.dimuthucodes.simpleWebApp.controller;
 import lk.dimuthucodes.simpleWebApp.model.Product;
 import lk.dimuthucodes.simpleWebApp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
 @RestController
+@RequestMapping("api/v1")
 public class ProductController  {
 
     @Autowired
     ProductService service;
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("/products")
     public List<Product> getProduct() {
@@ -19,23 +24,22 @@ public class ProductController  {
     }
 
     @GetMapping("/products/{Id}")
-    public Product getProductById (@PathVariable(value = "Id") int proId){
+    public ResponseEntity<Product> getProductById (@PathVariable(value = "Id") Integer proId){
         return service.getProductById(proId);
     }
 
     @PostMapping("/products")
-    public void addProduct(@RequestBody Product prod){
-        service.addProduct(prod);
-        System.out.println(prod);
+    public ResponseEntity<String> createProduct(@RequestBody Product prod){
+        return service.addProduct(prod);
     }
 
     @PutMapping("/products")
-    public void updateProduct(@RequestBody Product prod){
-        service.updateProduct(prod);
+    public ResponseEntity<String> updateProduct(@RequestParam Integer proId, @RequestParam Integer newPrice){
+        return service.updatePrice(proId,newPrice);
     }
 
     @DeleteMapping(("/products/{Id}"))
-    public void deleteProduct(@PathVariable(value = "Id") int proId){
-        service.removeProduct(proId);
+    public ResponseEntity<String> deleteProduct(@PathVariable(value = "Id") Integer proId){
+        return service.removeProduct(proId);
     }
 }
